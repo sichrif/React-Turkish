@@ -8,12 +8,18 @@ import { useNavigate } from 'react-router-dom';
 // material
 import { Stack, TextField, IconButton, InputAdornment } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from 'react-router-dom';
+import { register  } from "../../../actions/auth";
 
 // ----------------------------------------------------------------------
 
 export default function RegisterForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { isLoggedIn } = useSelector(state => state.auth);
+  
+  const dispatch = useDispatch();
 
   const RegisterSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -22,24 +28,47 @@ export default function RegisterForm() {
       .required('First name required'),
     lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required')
+    password: Yup.string().required('Password is required'),
+    confirmPassword: Yup.string().required('Password needs to much')
   });
+  const validateConfirmPassword = (pass, value) => {
 
+    let error = "";
+    if (pass && value) {
+      if (pass !== value) {
+        error = "Password not matched";
+      }
+    }
+    return error;
+  };
   const formik = useFormik({
     initialValues: {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      passwordConfirm:''
     },
     validationSchema: RegisterSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+    onSubmit: (values,actions) => {
+     // navigate('/dashboard', { replace: true });
+      dispatch(register(values.email, values.password, values.passwordConfirm, values.firstName, values.lastName))
+      .then(() => {
+        navigate('/login', { replace: true });
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     }
+    
   });
 
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
 
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard" />;
+  }
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -91,6 +120,31 @@ export default function RegisterForm() {
             helperText={touched.password && errors.password}
           />
 
+          <TextField
+            fullWidth
+            autoComplete="confirm-password"
+            type={showPassword ? 'text' : 'password'}
+            label="Confirm password"
+            {...getFieldProps('passwordConfirm')}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton edge="end" onClick={() => setShowPassword((prev) => !prev)}>
+                    <Icon icon={showPassword ? eyeFill : eyeOffFill} />
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+            validate={value =>
+              validateConfirmPassword( values.password, value)
+            }
+          
+            helperText={touched.passwordConfirm && errors.passwordConfirm}
+           
+ 
+          />
+      {errors.passwordConfirm && (<div>{errors.passwordConfirm}</div>)}
+
           <LoadingButton
             fullWidth
             size="large"
@@ -104,4 +158,4 @@ export default function RegisterForm() {
       </Form>
     </FormikProvider>
   );
-}
+          }

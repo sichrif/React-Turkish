@@ -17,6 +17,7 @@ import { register  } from "../../../actions/auth";
 export default function RegisterForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const { isLoggedIn } = useSelector(state => state.auth);
   
   const dispatch = useDispatch();
@@ -29,18 +30,10 @@ export default function RegisterForm() {
     lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Last name required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
-    confirmPassword: Yup.string().required('Password needs to much')
+    passwordConfirm:Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
   });
-  const validateConfirmPassword = (pass, value) => {
-
-    let error = "";
-    if (pass && value) {
-      if (pass !== value) {
-        error = "Password not matched";
-      }
-    }
-    return error;
-  };
+ 
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -123,28 +116,24 @@ export default function RegisterForm() {
           <TextField
             fullWidth
             autoComplete="confirm-password"
-            type={showPassword ? 'text' : 'password'}
+            type={showPasswordConfirm ? 'text' : 'password'}
             label="Confirm password"
             {...getFieldProps('passwordConfirm')}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton edge="end" onClick={() => setShowPassword((prev) => !prev)}>
-                    <Icon icon={showPassword ? eyeFill : eyeOffFill} />
+                  <IconButton edge="end" onClick={() => setShowPasswordConfirm((prev) => !prev)}>
+                    <Icon icon={showPasswordConfirm ? eyeFill : eyeOffFill} />
                   </IconButton>
                 </InputAdornment>
               )
             }}
-            validate={value =>
-              validateConfirmPassword( values.password, value)
-            }
-          
+            error={touched.passwordConfirm && errors.passwordConfirm}
             helperText={touched.passwordConfirm && errors.passwordConfirm}
            
  
           />
-      {errors.passwordConfirm && (<div>{errors.passwordConfirm}</div>)}
-
+       
           <LoadingButton
             fullWidth
             size="large"

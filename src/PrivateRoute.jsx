@@ -74,7 +74,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route {...rest} render={props =>
       !showAdminBoard ? (
-        <Navigate to="login" />
+        <Navigate to="login" replace='true' />
       ) : (
         <Component {...props} />
       )

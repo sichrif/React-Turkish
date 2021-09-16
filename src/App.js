@@ -11,6 +11,7 @@ import {
 import ThemeConfig from './theme';
 // components
 import ScrollToTop from './components/ScrollToTop';
+import Location from './components/Locations/Location';
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 //
@@ -21,9 +22,6 @@ import Products from './pages/Products';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
-import PrivateRoute from './PrivateRoute'
-import jwtDecode from 'jwt-decode';
-
 // ----------------------------------------------------------------------
 
 export default function App() {
@@ -31,16 +29,17 @@ export default function App() {
     <ThemeConfig>
     <ScrollToTop />
            <Routes>
-      <PrivateRoute  path= '/dashboard' element={ <DashboardLayout />}>
-      <PrivateRoute   element={<Navigate to="app" />} />
+      <Route  path= '/dashboard' element={ <DashboardLayout />}>
+      <Route   element={<Navigate to="app" />} />
 
-           <PrivateRoute path="app" element={<DashboardApp />} />
+           <Route path="app" element={<DashboardApp />} />
        
-          <PrivateRoute path="user" element={<User />} />
-          <PrivateRoute path="products" element={<Products />} />
-          <PrivateRoute path="blog" element={<Blog />} />
+          <Route path="user" element={<User />} />
+          <Route path="location" element={<Location />} />
+          <Route path="products" element={<Products />} />
+          <Route path="blog" element={<Blog />} />
 
-     </PrivateRoute>
+     </Route>
      </Routes>
      <Routes>
       <Route  path= '/' element={ <LogoOnlyLayout />}>

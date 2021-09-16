@@ -66,15 +66,16 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         }
     // eslint-disable-next-line
   }, [auth])
-
+ 
   if(isAuthenticated === null){
     return <></>
   }
 
   return (
+
     <Route {...rest} render={props =>
       !showAdminBoard ? (
-        <Navigate to="login" replace='true' />
+        <Navigate to="logissn" replace='true' />
       ) : (
         <Component {...props} />
       )

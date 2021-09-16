@@ -16,7 +16,11 @@ import {
   TextField,
   IconButton,
   InputAdornment,
-  FormControlLabel
+  FormControlLabel,
+  Alert,
+  Modal,
+  openCloseModalInsert,
+  
 } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
 import { login } from "../../../actions/auth";
@@ -25,7 +29,10 @@ import { login } from "../../../actions/auth";
 
 export default function LoginForm(props) {
   const navigate = useNavigate();
+  const [alert, setAlert] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
   const { isLoggedIn } = useSelector(state => state.auth);
   
   const dispatch = useDispatch();
@@ -42,15 +49,23 @@ export default function LoginForm(props) {
       remember: true
     },
     validationSchema: LoginSchema,
-    onSubmit: (values,actions) => {
+    onSubmit: (values, { setSubmitting }) => {
+      setAlert(false);
    //   navigate('/dashboard', { replace: true });
       dispatch(login(values.email, values.password))
-      .then(() => {
+      .then((response) => {
+        console.log(response);
+
+        setSubmitting(false);
         navigate('/dashboard/app', { replace: true });
         window.location.reload();
       })
-      .catch((e) => {
-        console.log(e);
+      .catch(err => {
+        console.log(err);
+        setError(error);
+        setAlert(true);
+        setSubmitting(false);
+        
       });
     }
   });
@@ -98,7 +113,10 @@ export default function LoginForm(props) {
             helperText={touched.password && errors.password}
           />
         </Stack>
-
+        <div>
+        {alert ? <Alert severity='error'>Email or password Incorrect!</Alert> : <></> }
+        
+        </div>
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
           <FormControlLabel
             control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}

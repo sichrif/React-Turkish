@@ -43,14 +43,16 @@ export default function RegisterForm() {
       passwordConfirm:''
     },
     validationSchema: RegisterSchema,
-    onSubmit: (values,actions) => {
+    onSubmit: (values,{ setSubmitting }) => {
      // navigate('/dashboard', { replace: true });
       dispatch(register(values.email, values.password, values.passwordConfirm, values.firstName, values.lastName))
       .then(() => {
+        setSubmitting(false);
         navigate('/login', { replace: true });
         window.location.reload();
       })
       .catch((e) => {
+        setSubmitting(false);
         console.log(e);
       });
     }

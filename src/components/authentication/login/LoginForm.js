@@ -1,10 +1,13 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
+import React, { useState, useRef } from "react";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useFormik, Form, FormikProvider } from 'formik';
+import { useDispatch, useSelector } from "react-redux";
+ import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
+import { Navigate } from 'react-router-dom';
+
 // material
 import {
   Link,
@@ -16,12 +19,16 @@ import {
   FormControlLabel
 } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
+import { login } from "../../../actions/auth";
 
 // ----------------------------------------------------------------------
 
-export default function LoginForm() {
+export default function LoginForm(props) {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { isLoggedIn } = useSelector(state => state.auth);
+  
+  const dispatch = useDispatch();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
@@ -35,8 +42,16 @@ export default function LoginForm() {
       remember: true
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+    onSubmit: (values,actions) => {
+   //   navigate('/dashboard', { replace: true });
+      dispatch(login(values.email, values.password))
+      .then(() => {
+        navigate('/dashboard/app', { replace: true });
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     }
   });
 
@@ -45,14 +60,18 @@ export default function LoginForm() {
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
   };
+  
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard" />;
 
-  return (
+  }
+   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Stack spacing={3}>
           <TextField
             fullWidth
-            autoComplete="username"
+            autoComplete="email"
             type="email"
             label="Email address"
             {...getFieldProps('email')}

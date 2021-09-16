@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import { useRef, useState } from 'react';
+import { useRef, useState,useCallback } from 'react';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
 import settings2Fill from '@iconify/icons-eva/settings-2-fill';
@@ -10,7 +10,12 @@ import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '
 // components
 import MenuPopover from '../../components/MenuPopover';
 //
+import { useNavigate } from 'react-router-dom';
+
 import account from '../../_mocks_/account';
+import { logout } from "../../actions/auth";
+import { useDispatch,useSelector } from "react-redux";
+import { Navigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -35,8 +40,19 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+
   const anchorRef = useRef(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
+   
+  const logOut = useCallback(() => {
+     dispatch(logout());
+    navigate('/login' );
+  //   <Navigate to="/dashboard" />;
+
+  }, [dispatch]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -110,7 +126,7 @@ export default function AccountPopover() {
         ))}
 
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullWidth color="inherit" variant="outlined">
+          <Button onClick={logOut} fullWidth color="inherit" variant="outlined">
             Logout
           </Button>
         </Box>

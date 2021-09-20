@@ -24,8 +24,12 @@ const RootStyle = styled('div')(({ theme }) => ({
   }
 }));
 let obj = localStorage.getItem("user");
-let email = JSON.parse(obj).email;
-let name = JSON.parse(obj).firstname;
+let email ="";
+let name ="";
+if(obj!=null){
+ email = JSON.parse(obj).email;
+ name = JSON.parse(obj).firstname;
+}
 
  const AccountStyle = styled('div')(({ theme }) => ({
   display: 'flex',

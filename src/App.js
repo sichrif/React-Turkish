@@ -43,13 +43,13 @@ export default function App() {
      </Route>
      </Routes>
      <Routes>
-      <Route  path= '/' element={ <Home />}>
+      <Route  path= '/' element={ <Home />}/>
            <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         
-     </Route>
+     
       <Route path="*"   element={<Navigate to="404" />} />
  
      </Routes>

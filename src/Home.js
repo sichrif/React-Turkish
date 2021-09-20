@@ -9,11 +9,14 @@ import FAQSection from "./components/FAQSection";
 import questions from "./questions";
 import Footer from "./components/Footer";
 import { Fade } from "react-reveal";
+import GlobalStyle from './GlobalStyle';
 
 
 export default function Home() {
   return (
-    <div className="App">
+    <div className="Home">
+          <GlobalStyle />
+
         <Header />
         <OuterLayout>
           <MainStyled>

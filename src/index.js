@@ -6,6 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import store from "./store";
+import GlobalStyle from './GlobalStyle';
+
 
 //
 import App from './App';
@@ -18,6 +20,7 @@ ReactDOM.render(
   <HelmetProvider>
     <BrowserRouter>
     <Provider store={store}>
+    <GlobalStyle />
       <App />
       </Provider>
     </BrowserRouter>

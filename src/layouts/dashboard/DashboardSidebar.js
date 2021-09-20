@@ -23,8 +23,11 @@ const RootStyle = styled('div')(({ theme }) => ({
     width: DRAWER_WIDTH
   }
 }));
+let obj = localStorage.getItem("user");
+let email = JSON.parse(obj).email;
+let name = JSON.parse(obj).firstname;
 
-const AccountStyle = styled('div')(({ theme }) => ({
+ const AccountStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(2, 2.5),
@@ -68,10 +71,10 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <Avatar src={account.photoURL} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {name}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
+                {email}
               </Typography>
             </Box>
           </AccountStyle>
@@ -102,10 +105,10 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
           <Box sx={{ textAlign: 'center' }}>
             <Typography gutterBottom variant="h6">
-              Get more?
+             {name}
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              From only $69
+               {email}
             </Typography>
           </Box>
 
@@ -115,7 +118,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             target="_blank"
             variant="contained"
           >
-            Upgrade to Pro
+            Edit profile
           </Button>
         </Stack>
       </Box>

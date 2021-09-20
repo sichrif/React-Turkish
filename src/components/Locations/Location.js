@@ -15,16 +15,13 @@ function Location() {
   const [newPlace, setNewPlace] = useState(null);
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
-  const [photoPic, setPhotoPic] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
+   const [selectedFile, setSelectedFile] = useState(null);
   const [star, setStar] = useState(0);
   const [viewport, setViewport] = useState({
-    latitude: 47.040182,
-    longitude: 17.071727,
-    zoom: 4,
-  });
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+    latitude: 41.00527,
+    longitude: 28.97696,
+    zoom: 8,
+  }); 
 
   const handleMarkerClick = (id, lat, long) => {
     setCurrentPlaceId(id);
@@ -33,7 +30,7 @@ function Location() {
 
   const handlePhoto = (e) => {
       console.log(e.target.files[0]);
-    setPhotoPic(e.target.files[0]);
+      setSelectedFile(e.target.files);
 }
   const handleAddClick = (e) => {
     const [longitude, latitude] = e.lngLat;
@@ -52,12 +49,26 @@ function Location() {
       rating: star,
       lat: newPlace.lat,
       long: newPlace.long,
-      photo: photoPic,
+      photo: selectedFile,
     };
+    const formData = new FormData();
 
+    formData.append("username",currentUsername);
+    formData.append("title",title);
+    formData.append("desc",desc);
+    formData.append("rating",star);
+    formData.append("lat",newPlace.lat);
+    formData.append("long",newPlace.long);
+    formData.append("photo",selectedFile);
+    var object = {};
+formData.forEach(function(value, key){
+    object[key] = value;
+});
+let json = JSON.stringify(object);
     try {
+  
         let url = process.env.REACT_APP_BACKEND_URL +"/api/pins"
-      const res = await axios.post(url, newPin);
+      const res = await axios.post(url, object);
       setPins([...pins, res.data]);
       setNewPlace(null);
     } catch (err) {
@@ -72,6 +83,7 @@ function Location() {
 
         const allPins = await axios.get(url);
         setPins(allPins.data);
+        console.log(allPins);
       } catch (err) {
         console.log(err);
       }
@@ -139,7 +151,7 @@ function Location() {
                   </span>
                   <span className="date">{format(p.createdAt)}</span>
                   <img src={p.photo}></img>
-                </div>
+                 </div>
               </Popup>
             )}
           </>

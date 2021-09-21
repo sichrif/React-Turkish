@@ -22,7 +22,7 @@ import Products from './pages/Products';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
-import Home from './Home';
+//import Home from './Home';
 // ----------------------------------------------------------------------
 
 export default function App() {
@@ -43,14 +43,13 @@ export default function App() {
      </Route>
      </Routes>
      <Routes>
-      <Route  path= '/' element={ <Home />}/>
-           <Route path="login" element={<Login />} />
+            <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="404" element={<NotFound />} />
-          <Route path="*" element={<NotFound />} />
+          {/* <Route path="*" element={<NotFound />} />
         
      
-      <Route path="*"   element={<Navigate to="404" />} />
+      <Route path="*"   element={<Navigate to="404" />} /> */}
  
      </Routes>
     </ThemeConfig>

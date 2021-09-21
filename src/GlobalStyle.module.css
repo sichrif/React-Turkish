@@ -17,7 +17,7 @@
         text-decoration: none;
     }
 
-    body{
+    .Home{
         background-color: var(--neutral-light);
         color: white;
         font-size: 1.2rem;

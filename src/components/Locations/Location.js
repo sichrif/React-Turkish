@@ -1,4 +1,4 @@
-import "./Location.css";
+import "./Location.module.css";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { useEffect, useState } from "react";
 import { Room, Star, StarBorder } from "@material-ui/icons";

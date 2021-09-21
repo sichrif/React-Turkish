@@ -32,7 +32,7 @@ const PRODUCT_NAME = [
   'Nike React Infinity Run Flyknit A.I.R. Chaz Bear'
 ];
 const PRODUCT_COLOR = [
-  '#00AB55',
+  '#faa',
   '#000000',
   '#FFFFFF',
   '#FFC0CB',

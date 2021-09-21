@@ -1,7 +1,4 @@
-import {createGlobalStyle} from 'styled-components';
-
-
-const GlobalStyle = createGlobalStyle`
+ 
     :root{
         --purple-primary: #554DDE;
         --accent-pink: #F44E77;
@@ -47,12 +44,8 @@ const GlobalStyle = createGlobalStyle`
         color: var(--accent-pink);
     }
 
-    //Utilities
-    .c-para{
+     .c-para{
         text-align: center;
     }
 
-  
-`;
-
-export default GlobalStyle;
+   

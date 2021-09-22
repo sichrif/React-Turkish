@@ -25,7 +25,7 @@ const ReadOnlyRow = ({ contact, handleEditClick, handleDeleteClick }) => {
           <Icon  style="    cursor: pointer !important;"         onClick={(event) => handleEditClick(event, contact)}
  icon={accountEdit} color="#df4e6a"  width="30" height="30" />
            
-        <Icon style="    cursor: pointer;" icon={deleteEmptyOutline} onClick={() => handleDeleteClick(contact.id)} color="#df4e6a" width="30" height="30" />
+        <Icon style="    cursor: pointer;" icon={deleteEmptyOutline} onClick={() => handleDeleteClick(contact._id)} color="#df4e6a" width="30" height="30" />
 
       </td>
     </tr>

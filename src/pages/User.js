@@ -89,7 +89,7 @@ const User = () => {
 
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.id === editContactId);
+    const index = contacts.findIndex((contact) => contact._id === editContactId);
 
     newContacts[index] = editedContact;
 
@@ -99,7 +99,7 @@ const User = () => {
 
   const handleEditClick = (event, contact) => {
     event.preventDefault();
-    setEditContactId(contact.id);
+    setEditContactId(contact._id);
 
     const formValues = {
       fullName: contact.fullName,
@@ -113,16 +113,21 @@ const User = () => {
 
   const handleCancelClick = () => {
     setEditContactId(null);
-  };
-
+  }; 
   const handleDeleteClick = (contactId) => {
-    const newContacts = [...contacts];
+     axios.delete(process.env.REACT_APP_BACKEND_URL+'/api/users/'+contactId, { headers: authHeader() })
+    .then((resp)=>{
+      const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.id === contactId);
-
-    newContacts.splice(index, 1);
-
-    setContacts(newContacts);
+      const index = contacts.findIndex((contact) => contact._id === contactId);
+  
+      newContacts.splice(index, 1);
+  
+      setContacts(newContacts);
+      console.log(resp);
+    })
+    .catch(err=>console.log(err))
+  
   };
    return (
        <><form onSubmit={handleEditFormSubmit}>
@@ -139,7 +144,7 @@ const User = () => {
         <tbody>
           {contacts.map((contact) => (
             <Fragment>
-              {editContactId === contact.id ? (
+              {editContactId === contact._id ? (
                 <EditableRow
                   Icon="accountEdit"
                   editFormData={editFormData}

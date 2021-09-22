@@ -5,7 +5,6 @@ const API_URL = "http://localhost:5000/api/auth/";
 
  const register = (email, password,passwordConfirm,firstname,lastname) => {
   return axios.post(API_URL + "register", {
-    username,
     email,
     password,
     passwordConfirm,

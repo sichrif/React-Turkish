@@ -58,7 +58,7 @@ export default function LoginForm(props) {
 
         setSubmitting(false);
         navigate('/dashboard/app', { replace: true });
-        window.location.reload();
+       // window.location.reload();
       })
       .catch(err => {
         console.log(err);

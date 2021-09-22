@@ -30,7 +30,7 @@ const User = () => {
   const [editContactId, setEditContactId] = useState(null);
   const getUsers = () =>{
       axios.get(process.env.REACT_APP_BACKEND_URL+'/api/users', { headers: authHeader() })
-      .then(res=>{setContacts(res.data);setToggle(true)})
+      .then(res=>setContacts(res.data))
     .catch((err)=>{
       console.log(err);
     });
@@ -129,10 +129,10 @@ const User = () => {
       <table className="styled-table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Phone Number</th>
-            <th>Email</th>
+            <th>Avatar</th>
+            <th>First name</th>
+            <th>Last name</th>
+             <th>Email</th>
             <th>Actions</th>
           </tr>
         </thead>

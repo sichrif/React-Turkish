@@ -1,10 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import arrow from '../img/arrow.svg'
+import axios from 'axios';
+import authHeader from "../services/auth-header";
 
 function Secondarybutton({name}) {
+    const handleClickk =  ()  =>  {
+     const   data = {
+            email:"mchricccf000@booooya.com"
+        }
+        axios.post(process.env.REACT_APP_BACKEND_URL +"/api/checkout/create-checkout-session",data)
+        .then(res=>{console.log(res)})
+        .catch(err=>console.log(err));
+    }
     return (
-        <SecondaryButtonStyled>
+        <SecondaryButtonStyled  onClick={handleClickk}>
+            
             {name}
             <img src={arrow} alt="" />
         </SecondaryButtonStyled>
@@ -16,7 +27,7 @@ const SecondaryButtonStyled = styled.button`
     padding: 1rem 2rem;
     font-family: inherit;
     font-size: inherit;
-    color: inherit;
+    color: white;
     border-radius: 20px;
     outline: none;
     border: none;

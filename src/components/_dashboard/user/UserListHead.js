@@ -40,7 +40,7 @@ export default function UserListHead({
         </TableCell>
         {headLabel.map((headCell) => (
           <TableCell
-            key={headCell.id}
+            key={headCell._id}
             align={headCell.alignRight ? 'right' : 'left'}
             sortDirection={orderBy === headCell.id ? order : false}
           >

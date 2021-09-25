@@ -22,7 +22,8 @@ import Products from './pages/Products';
 import Blog from './pages/Blog';
 import User from './pages/User';
 import NotFound from './pages/Page404';
-//import Home from './Home';
+import Payofficial from './components/payment/Payofficial';
+import Home from './Home';
 // ----------------------------------------------------------------------
 
 export default function App() {
@@ -30,6 +31,8 @@ export default function App() {
     <ThemeConfig>
     <ScrollToTop />
            <Routes>
+      <Route  path= '/' element={ <Home />}/>
+      <Route   path= '/payment' element={ <Payofficial/>}/>
       <Route  path= '/dashboard' element={ <DashboardLayout />}>
       <Route   element={<Navigate to="app" />} />
 

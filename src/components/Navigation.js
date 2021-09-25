@@ -5,6 +5,7 @@ import logo from '../img/logo.svg';
 import { Fade } from 'react-reveal';
 
 function Navigation() {
+
     return (
         <Fade top>
         <NavigationStyled>
@@ -22,7 +23,7 @@ function Navigation() {
                     <a href="">Pricing</a>
                 </li>
             </ul>
-            <PrimaryButton name={'Sign Up'} />
+            <PrimaryButton  name={'Sign Up'} />
         </NavigationStyled>
         </Fade>
     )

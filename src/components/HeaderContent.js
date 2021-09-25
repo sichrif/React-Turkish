@@ -6,8 +6,17 @@ import ring1 from '../img/ring_orange.svg';
 import message1 from '../img/message_pink.svg';
 import message2 from '../img/message_blue.svg';
 import { Fade } from 'react-reveal';
+import axios from 'axios';
 
 function HeaderContent() {
+const paynow = () =>{
+    data = {
+        email:"mchrif000@booooya.com"
+    }
+    axios.post(process.env.REACT_APP_BACKEND_URL+'/api/checkout/webhook',data)
+    .then(resp=>console.log(resp))
+    .catch(err=>console.log(err))
+}
     return (
         <HeaderContentStyled>
             <Fade left cascade>
@@ -18,7 +27,7 @@ function HeaderContent() {
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit molestiae minus dicta ipsum atque est qui vel illo magni voluptates esse, e
                         x commodi corporis quos odio libero temporibus, eveniet nisi.
                     </p>
-                    <Secondarybutton name={'Register Now'}/>
+                    <Secondarybutton onClick={paynow} name={'Register Now'}/>
                 </div>
             </div>
             </Fade>

@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 function PrimaryButton({name}) {
+    const navigate = useNavigate();
+
+const cclik =() =>{
+    console.log("jsjsjs");
+    navigate('/register', { replace: true })
+}
     return (
-        <ButtonStyled>
+        <ButtonStyled onClick={cclik} >
             {name}
         </ButtonStyled>
     )

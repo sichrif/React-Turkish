@@ -1,36 +1,161 @@
 import "./Location.module.css";
-import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import ReactMapGL, { Marker, Popup,
+  NavigationControl,
+  FullscreenControl,
+  ScaleControl,
+  GeolocateControl } from "react-map-gl";
 import { useEffect, useState } from "react";
+import styled from 'styled-components';
 import { Room, Star, StarBorder } from "@material-ui/icons";
  import axios from "axios";
+ import { Icon } from '@iconify/react';
+import deleteFilled from '@iconify/icons-ant-design/delete-filled';
+import FilesUploadComponent from "./files-upload-component";
 import { format } from "timeago.js";
+import authHeader from "src/services/auth-header";
    const dotenv = require("dotenv");
 dotenv.config();
 
+const LocationStyle = styled.header`
+.card {
+  width: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.labelClass {
+  width: max-content;
+  color: tomato;
+  font-size: 13px;
+  border-bottom: 0.5px solid tomato;
+  margin: 3px 0;
+}
+
+.image-item {
+display: flex;
+margin: 10px 0;
+}
+.image-item__btn-wrapper {
+display: flex;
+flex-direction: column;
+margin-left: 10px;
+}
+.desc {
+  font-size: 14px;
+}
+
+.star {
+  color: gold;
+}
+
+.username {
+  font-size: 14px;
+}
+
+.date {
+  font-size: 12px;
+}
+
+.formclass {
+  width: 250px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: rgb(88, 87, 87);
+}
+
+.inputclass {
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+.inputclass::placeholder,
+.textareaclass::placeholder {
+  font-size: 12px;
+  color: rgb(185, 184, 184);
+}
+
+.inputclass:focus,
+.textareaclass:focus,
+select:focus {
+  outline: none;
+}
+
+.textareaclass {
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+.submitButton {
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: tomato;
+  cursor: pointer;
+}
+
+.buttons,
+.logout {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.allstyle{
+  height : auto;
+}
+.button {
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.button:focus{
+  outline: none;
+}
+
+.logout{
+  background-color: tomato;
+}
+
+.login{
+  background-color: teal;
+  margin-right: 10px;
+}
+
+.register{
+  background-color: slateblue;
+}
+`;
 function Location() {
   const myStorage = window.localStorage;
-  const [currentUsername, setCurrentUsername] = useState(myStorage.getItem("user"));
+  const [currentUsername, setCurrentUsername] = useState(JSON.parse(localStorage.getItem("user")));
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
-   const [selectedFile, setSelectedFile] = useState(null);
+   const [selectedFile, setSelectedFile] = useState('');
   const [star, setStar] = useState(0);
+  const [role, setRole] = useState(false);
   const [viewport, setViewport] = useState({
     latitude: 41.00527,
     longitude: 28.97696,
     zoom: 8,
   }); 
-
   const handleMarkerClick = (id, lat, long) => {
     setCurrentPlaceId(id);
     setViewport({ ...viewport, latitude: lat, longitude: long });
   };
 
-  const handlePhoto = (e) => {
-      console.log(e.target.files[0]);
-      setSelectedFile(e.target.files);
+ const onFileChange = (e) => {
+   setSelectedFile({ imgCollection: e.target.files })
 }
   const handleAddClick = (e) => {
     const [longitude, latitude] = e.lngLat;
@@ -39,10 +164,24 @@ function Location() {
       long: longitude,
     });
   };
+const  handleDelete = (id) =>{
+console.log(id);
+let url = process.env.REACT_APP_BACKEND_URL +"/api/pins/"+id;
+  axios.delete(url, { headers: authHeader() })
+.then(resp=>{
+  console.log(resp);
+  setPins(pins.filter(pin=>pin._id !==id))
+ 
+})
+.catch(err=>{
+  console.log(err);
+})
 
+}
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newPin = {
+   const  newPin = {
       username: currentUsername,
       title,
       desc,
@@ -52,33 +191,52 @@ function Location() {
       photo: selectedFile,
     };
     const formData = new FormData();
-
+    for (let i = 0 ; i < selectedFile['imgCollection'].length;i++) {
+       formData.append('imgCollection', selectedFile['imgCollection'][i])
+  }
     formData.append("username",currentUsername);
     formData.append("title",title);
     formData.append("desc",desc);
     formData.append("rating",star);
     formData.append("lat",newPlace.lat);
     formData.append("long",newPlace.long);
-    formData.append("photo",selectedFile);
-    var object = {};
-formData.forEach(function(value, key){
-    object[key] = value;
-});
-let json = JSON.stringify(object);
+   //   var object = {};
+// formData.forEach(function(value, key){
+//     object[key] = value;
+// });
+// let json = JSON.stringify(object);
     try {
-  
-        let url = process.env.REACT_APP_BACKEND_URL +"/api/pins"
-      const res = await axios.post(url, object);
-      setPins([...pins, res.data]);
-      setNewPlace(null);
+         let url = process.env.REACT_APP_BACKEND_URL +"/api/pins"
+      const res = await axios.post(url, formData)
+      .then(res => {
+        console.log(res.data)
+        setPins([...pins, res.data]);
+        setNewPlace(null);
+    })
+    .catch(err=>{
+      console.log(err);
+    });
+     
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
+
     const getPins = async () => {
+
       try {
+         if(currentUsername.isAdmin){
+          setRole(true);
+          console.log(role);
+
+        }else{
+          setRole(false);
+          console.log(role);
+
+        }
+        
         let url = process.env.REACT_APP_BACKEND_URL +"/api/pins"
 
         const allPins = await axios.get(url);
@@ -97,6 +255,7 @@ let json = JSON.stringify(object);
   };
 
   return (
+    <LocationStyle>
     <div style={{ height: "100vh", width: "100%" }}>
       <ReactMapGL
         {...viewport}
@@ -130,13 +289,19 @@ let json = JSON.stringify(object);
               <Popup
                 key={p._id}
                 latitude={p.lat}
+                className="allstyle"
                 longitude={p.long}
                 closeButton={true}
                 closeOnClick={false}
                 onClose={() => setCurrentPlaceId(null)}
                 anchor="left"
               >
+                   <Icon icon={deleteFilled} color="red" 
+                onClick={()=> handleDelete(p._id)}
+                />
                 <div className="card">
+              
+
                   <label className="labelClass" >Place</label>
                   <h4 className="place">{p.title}</h4>
                   <label className="labelClass" >Review</label>
@@ -150,8 +315,9 @@ let json = JSON.stringify(object);
                     Created at <b>{p.username}</b>
                   </span>
                   <span className="date">{format(p.createdAt)}</span>
-                  <img src={p.photo}></img>
-                 </div>
+                  <label>images</label>
+                      <img src={p.imgCollection[0]}></img>
+                     </div>
               </Popup>
             )}
           </>
@@ -203,13 +369,13 @@ let json = JSON.stringify(object);
                     <option value="4">4</option>
                     <option value="5">5</option>
                   </select>
-                  <input 
-                type="file" 
-                accept=".png, .jpg, .jpeg"
-                name="photo"
-                onChange={handlePhoto}
-            />
+                  <div className='form-group'>
+              <label htmlFor='file'>File upload</label>
+              <div className="form-group">
+                            <input type="file" name="imgCollection" onChange={onFileChange} multiple />
+                        </div>
 
+            </div>
 
                   <button type="submit" className="submitButton">
                     Add Pin
@@ -219,9 +385,12 @@ let json = JSON.stringify(object);
             </Popup>
           </>
         )}
-        
+         <NavigationControl/>
+   <ScaleControl/>
+  <GeolocateControl />
       </ReactMapGL>
     </div>
+    </LocationStyle>
   );
 }
 

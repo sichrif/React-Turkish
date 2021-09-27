@@ -19,6 +19,7 @@ import ImageSlider from './ImageSlider';
 
 const dotenv = require('dotenv');
 dotenv.config();
+import {   Button   } from '@material-ui/core';
 
 const LocationStyle = styled.header`
 @import "~react-image-gallery/styles/css/image-gallery.css";
@@ -151,6 +152,7 @@ function Location() {
   const myStorage = window.localStorage;
   const [currentUsername, setCurrentUsername] = useState(JSON.parse(localStorage.getItem('user')));
   const [pins, setPins] = useState([]);
+  const [showi, setShowi] = useState(false);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [title, setTitle] = useState(null);
@@ -158,6 +160,7 @@ function Location() {
   const [selectedFile, setSelectedFile] = useState('');
   const [star, setStar] = useState(0);
   const [role, setRole] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [viewport, setViewport] = useState({
     latitude: 41.00527,
     longitude: 28.97696,
@@ -167,7 +170,13 @@ function Location() {
     setCurrentPlaceId(id);
     setViewport({ ...viewport, latitude: lat, longitude: long });
   };
-
+const  toggleModal = () => {
+   if (showModal==true)
+{  setShowModal(false);}
+  else{
+    setShowModal(true);
+  }
+} 
   const onFileChange = (e) => {
     setSelectedFile({ imgCollection: e.target.files });
   };
@@ -178,6 +187,9 @@ function Location() {
       long: longitude
     });
   };
+  const handleImage = () =>{
+    setShowi(true);
+    }
   const handleDelete = (id) => {
     console.log(id);
     let url = process.env.REACT_APP_BACKEND_URL + '/api/pins/' + id;
@@ -264,6 +276,7 @@ function Location() {
   };
 
   return (
+    
     <LocationStyle>
       <div style={{ height: '100vh', width: '100%' }}>
         <ReactMapGL
@@ -318,7 +331,16 @@ function Location() {
                     </span>
                     <span className="date">{format(p.createdAt)}</span>
                     <label>images</label>
-                    <ImageSlider slides={p.imgCollection} />
+                     
+                    <Button onClick={()=>toggleModal()} > Show images </Button>
+                    {
+                      showModal &&
+                        <ImageSlider 
+                        isOpen={ showModal} 
+                        toggle={ toggleModal} 
+                        slides={p.imgCollection} />  
+
+                     }
                   </div>
                 </Popup>
               )}

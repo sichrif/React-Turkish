@@ -68,8 +68,8 @@ export default function Register() {
               Free forever. No credit card needed.
             </Typography>
           </Box>
-
-          <AuthSocial />
+{/* 
+          <AuthSocial /> */}
 
           <RegisterForm />
 

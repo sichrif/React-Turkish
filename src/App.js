@@ -7,6 +7,11 @@ import {
   Navigate,
   Routes
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'
+
 // theme
 import ThemeConfig from './theme';
 // components
@@ -25,8 +30,23 @@ import NotFound from './pages/Page404';
 import Payofficial from './components/payment/Payofficial';
 import Home from './Home';
 // ----------------------------------------------------------------------
+ 
 
 export default function App() {
+  const location = useLocation();
+  const navigate = useNavigate(); 
+  const { isLoggedIn } = useSelector(state => state.auth);
+
+  useEffect(() => {
+    console.log(location.pathname);
+
+    if(!isLoggedIn && location.pathname != '/' &&location.pathname != '/register' && location.pathname != '/404'){
+      navigate('/login', { replace: true })
+
+    }
+  }, []);
+ 
+
   return (
     <ThemeConfig>
     <ScrollToTop />

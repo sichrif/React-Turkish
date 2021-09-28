@@ -1,7 +1,4 @@
 import axios from "axios";
-import {useStripe, useElements} from '@stripe/react-stripe-js';
-
-import { useNavigate } from 'react-router-dom';
 
 const API_URL = "http://localhost:5000/api/auth/";
 
@@ -19,7 +16,7 @@ const API_URL = "http://localhost:5000/api/auth/";
       email: email,
     },
   });
-  
+ console.log("result",result);
   if (result.error) {
     console.log(result.error.message);
   }else {
@@ -27,29 +24,32 @@ const API_URL = "http://localhost:5000/api/auth/";
     password,
     passwordConfirm,
     firstname,
-    lastname});
+    lastname})
+    .then((response)=>{
+      return response;
+    })
+    .catch((error)=>{
+      return error;
+    })
+    ;
+
     // eslint-disable-next-line camelcase
     const {client_secret, status} = res.data;
+    console.log(res);
 
     if (status === 'requires_action') {
       stripe.confirmCardPayment(client_secret).then(function(result) {
         if (result.error) {
           console.log('There was an issue!');
-          console.log(result.error);
-          // Display error message in your UI.
-          // The card was declined (i.e. insufficient funds, card has expired, etc)
-        } else {
+          console.log(result.error); 
+        } else { 
           console.log('You got the money!');
           // Show a success message to your customer
-          return res;
-
-        }
+          return res;   }
       });
     } else {
       console.log('You got the money!');
-      return res;
-      // No additional information was needed
-      // Show a success message to your customer
+      return res; 
     }
 
  

@@ -5,6 +5,8 @@ import { alpha, styled } from '@material-ui/core/styles';
 import { Card, Typography } from '@material-ui/core';
 // utils
 import { fShortenNumber } from '../../../utils/formatNumber';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 // ----------------------------------------------------------------------
 
@@ -37,14 +39,25 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 const TOTAL = 1352831;
 
 export default function AppNewUsers() {
+   let url = process.env.REACT_APP_BACKEND_URL + '/api/checkout/balance';
+
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.get(url).then(response => { 
+      setData(response.data.balance.pending[0].amount+"  " +response.data.balance.pending[0].currency)
+    });
+    
+  }, []);
+ 
+ 
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon={appleFilled} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
+      <Typography variant="h3">{fShortenNumber(data)}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        New Users
+        Pending Balance
       </Typography>
     </RootStyle>
   );

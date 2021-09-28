@@ -1,5 +1,9 @@
 // material
 import { Box, Grid, Container, Typography } from '@material-ui/core';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import authHeader from "../services/auth-header";
+
 // components
 import Page from '../components/Page';
 import {
@@ -20,6 +24,7 @@ import {
 // ----------------------------------------------------------------------
 
 export default function DashboardApp() {
+ 
   return (
     <Page title="Dashboard | Turkish-UI">
       <Container maxWidth="xl">

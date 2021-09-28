@@ -27,7 +27,7 @@ import { register  } from "../../actions/auth";
 const useStyles = makeStyles({
   root: {
     maxWidth: 500,
-    margin: '35vh auto',
+ 
     
   },
   content: {
@@ -40,6 +40,7 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     alignContent: 'flex-start',
     justifyContent: 'space-between',
+    paddingBottom: '7%'
   },
   button: {
     margin: '2em auto 1em',
@@ -133,47 +134,50 @@ const formik = useFormik({
   }
   
 });
-const handleSubmitSub = async (event) => {
-  if (!stripe || !elements) {
-    // Stripe.js has not yet loaded.
-    // Make sure to disable form submission until Stripe.js has loaded.
-    return;
-  }
+// const handleSubmitSub = async (event) => {
+//   if (!stripe || !elements) {
+//     // Stripe.js has not yet loaded.
+//     // Make sure to disable form submission until Stripe.js has loaded.
+//     return;
+//   }
 
-  const result = await stripe.createPaymentMethod({
-    type: 'card',
-    card: elements.getElement(CardElement),
-    billing_details: {
-      email: email,
-    },
-  });
+//   const result = await stripe.createPaymentMethod({
+//     type: 'card',
+//     card: elements.getElement(CardElement),
+//     billing_details: {
+//       email: email,
+//     },
+//   });
 
-  if (result.error) {
-    console.log(result.error.message);
-  } else {
-    const res = await axios.post(process.env.REACT_APP_BACKEND_URL+'/api/checkout/sub', {'payment_method': result.paymentMethod.id, 'email': email});
-    // eslint-disable-next-line camelcase
-    const {client_secret, status} = res.data;
+//   if (result.error) {
+//     console.log(result.error.message);
+//   } else {
+//     const res = await axios.post(process.env.REACT_APP_BACKEND_URL+'/api/checkout/sub', {'payment_method': result.paymentMethod.id, 'email': email});
+//     // eslint-disable-next-line camelcase
+//     const {client_secret, status} = res.data;
+//     console.log(status);
 
-    if (status === 'requires_action') {
-      stripe.confirmCardPayment(client_secret).then(function(result) {
-        if (result.error) {
-          console.log('There was an issue!');
-          console.log(result.error);
-          // Display error message in your UI.
-          // The card was declined (i.e. insufficient funds, card has expired, etc)
-        } else {
-          console.log('You got the money!');
-          // Show a success message to your customer
-        }
-      });
-    } else {
-      console.log('You got the money!');
-      // No additional information was needed
-      // Show a success message to your customer
-    }
-  }
-};
+//     if (status === 'requires_action') {
+//       console.log('There was an issue!');
+
+//       stripe.confirmCardPayment(client_secret).then(function(result) {
+//         if (result.error) {
+//           console.log('There was an issue!');
+//           console.log(result.error);
+//           // Display error message in your UI.
+//           // The card was declined (i.e. insufficient funds, card has expired, etc)
+//         } else {
+//           console.log('You got the money!');
+//           // Show a success message to your customer
+//         }
+//       });
+//     } else {
+//       console.log('You got the money!');
+//       // No additional information was needed
+//       // Show a success message to your customer
+//     }
+//   }
+// };
 
 const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
 

@@ -15,11 +15,11 @@ import EventBus from "./common/EventBus";
 const PrivateRoute = ({ component: Component, ...rest }) => {
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminBoard, setShowAdminBoard] = useState(false);
-  
     const { user: currentUser } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
  
     useEffect(() => {
+        console.log("fjfjfjjfjf")
 
       history.listen((location) => {
         dispatch(clearMessage()); // clear message when changing location

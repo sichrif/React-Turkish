@@ -49,7 +49,7 @@ Navbar.defaultProps = {
 
 const NavbarStyled = styled.main`
 .nav {
-  width: calc(100% - 24px);
+  width: calc(100%);
   position: absolute;
   padding: 0px 12px;
   top: 0px;

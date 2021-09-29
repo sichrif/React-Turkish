@@ -5,7 +5,7 @@ function Services() {
     <section id="services">
       <div className="section-text">
         <div className="section-text__title-centered">
-          How can we help you with Anapp!
+          How can we help you with Turkish!
         </div>
         <div className="service-cards">
           <div className="service-card">

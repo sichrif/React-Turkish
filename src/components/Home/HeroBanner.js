@@ -7,7 +7,7 @@ function HeroBanner() {
         <div className="home-text">
           <div className="section-text__subtitle">App landing page</div>
           <div className="section-text__title-big">
-            Get things done with Anapp
+            Get things done with Turkish
           </div>
           <div className="section-text__body">
             Dorem ipsum dolor sitamet, consectetur adipiscing elit, sed do eiusm

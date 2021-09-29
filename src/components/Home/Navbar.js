@@ -14,7 +14,7 @@ import { useScrollYPosition } from "react-use-scroll-position";
         menuOpen ? " nav-open" : ""
       }`}>
       <div className="nav-content">
-        <div className="nav-logo">Anapp</div>
+        <div className="nav-logo">Turkish</div>
 
         <nav className="nav-links__container">
           {links &&

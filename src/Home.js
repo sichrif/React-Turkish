@@ -27,14 +27,14 @@ export default function Home() {
     <Navbar />
 
             <MainStyled>
-            <main>
-             <Fade left>
+            <main >
+             <Fade left  className="chrif">
               <HeroBanner />
             </Fade>
             <Fade right>
               <Features />
             </Fade>
-            <Fade left>
+            <Fade left  >
               <Services />
             </Fade>
             <Fade right>
@@ -58,23 +58,15 @@ export default function Home() {
 
 const MainStyled = styled.main`
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,600,700&display=swap");
-
-html,
-body {
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
-  font-size: 16px;
-  font-family: "Nunito", sans-serif;
+ main{
+  background-color: #ffaaaa3b;
+ }
+#features{
+   margin-bottom : 25% !important;
+ }
+#services{
+  padding-top: 0px !important;
 }
-
-main {
-  z-index: 100;
-}
-main > *:nth-child(odd) {
-  background-color: #f4feff;
-}
-
 section {
   display: flex;
   flex-direction: column;
@@ -112,6 +104,7 @@ section > .container > * {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 40px;
+  margin-top: 64px;
   color: #2b044d;
   max-width: 400px;
 }
@@ -176,7 +169,9 @@ section > .container > * {
     display: none;
   }
 }
-
+.section-text__title-big {
+  font-size: 3rem;
+}
 .feature-box {
   margin-bottom: 32px;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PrimaryButton from './PrimaryButton';
-import logo from '../img/logo.svg';
+//import logo from '';
 import { Fade } from 'react-reveal';
 
 function Navigation() {
@@ -10,7 +10,7 @@ function Navigation() {
         <Fade top>
         <NavigationStyled>
             <div className="logo">
-                <img src={logo} alt="" />
+                <img width="250px" height="250px" src='/static/favicon.png' alt="" />
             </div>
             <ul>
                 <li>

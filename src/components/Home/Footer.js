@@ -9,7 +9,7 @@ function Footer() {
       <div className="container">
         <div className="row">
           <div className="col-30">
-            <div className="footer-text__title">Anapp</div>
+            <div className="footer-text__title">Turkish</div>
             <div className="footer-text__body">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
               eiusmod tempor incididunt ut labore.

@@ -133,6 +133,10 @@ section > .container > * {
   margin-bottom: 8px;
   color: #23182c;
 }
+.turkish_title{
+  color : red !important;
+  font-weight: bold;
+}
 .section-text__subtitle {
   color: #2b044d;
   font-size: 1rem;
@@ -147,6 +151,15 @@ section > .container > * {
   font-weight: 400;
   max-width: 300px;
 }
+  .homepic{
+    -moz-box-shadow: 10px 10px 5px #ccc;
+    -webkit-box-shadow: 10px 10px 5px #ccc;
+    box-shadow: 10px 10px 5px #ccc;
+    -moz-border-radius:25px;
+    -webkit-border-radius:25px;
+     max-height: 50vw !important;
+    max-width: 50vw !important;
+  }
 
 .section-image {
   height: calc(100vh - 130px);
@@ -230,7 +243,7 @@ section > .container > * {
 }
 
 .download-btn {
-  background-color: #f9218d;
+  background-color: red;
   text-decoration: none;
   color: #fff;
   cursor: pointer;

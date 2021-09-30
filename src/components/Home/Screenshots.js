@@ -16,7 +16,7 @@ function Screenshots() {
         <div className="section-carousel">
           <div className="section-carousel__images">
             <div className="section-carousel__image">
-              <img src="./images/App1.webp" alt="app screenshot" />
+              <img src="./images/Navigation.svg" alt="Map app screenshot" />
             </div>
             <div className="section-carousel__image">
               <img src="./images/App2.webp" alt="app screenshot" />

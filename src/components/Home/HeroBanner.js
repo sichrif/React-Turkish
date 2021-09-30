@@ -5,16 +5,16 @@ function HeroBanner() {
     <section id="home">
       <div className="container">
         <div className="home-text">
-          <div className="section-text__subtitle">App landing page</div>
+          <div className="section-text__subtitle turkish_title">Turkish pass</div>
           <div className="section-text__title-big">
-            Get things done with Turkish
+            The best discounts you could ever get
           </div>
           <div className="section-text__body">
-            Dorem ipsum dolor sitamet, consectetur adipiscing elit, sed do eiusm
-            tempor incididunt ulabore et dolore magna aliqua.
+            With Turkish pass you could save up to 70% while shopping
+            'Literally' everywhere in Turkey
           </div>
-          <a href="#download" className="download-btn">
-            Download App
+          <a href="/register" className="download-btn">
+            Register now
           </a>
         </div>
 

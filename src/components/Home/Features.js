@@ -1,11 +1,21 @@
 import React from "react";
 
 function Features() {
+  // let url = process.env.REACT_APP_BACKEND_URL + '/api/pins/getimages';
+
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   axios.get(url).then(response => { 
+  //     console.log(response);
+  //     setData(process.env.REACT_APP_BACKEND_URL +"/public/"+response.data)
+  //   });
+    
+  // }, []);
   return (
     <section id="features">
       <div className="container">
         <div className="section-image__small">
-          <img src="./images/best-features.webp" alt="features" />
+          <img src="./images/feature.svg" alt="features" />
         </div>
         <div className="section-text">
           <div className="section-text__title">

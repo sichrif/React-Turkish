@@ -28,6 +28,9 @@
   }
   
   .nav-logo {
+
+    flex-flow: nowrap;
+
     height: 100%;
     display: inline-flex;
     flex-direction: column;

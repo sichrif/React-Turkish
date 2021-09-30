@@ -19,7 +19,7 @@ function HeroBanner() {
         </div>
 
         <div className="section-image">
-          <img src="./images/hero_right.webp" alt="app preview" />
+          <img src="./images/discount_home.svg" alt="app preview" />
         </div>
       </div>
     </section>

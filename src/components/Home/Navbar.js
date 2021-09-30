@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
 import { useScrollYPosition } from "react-use-scroll-position";
+ 
  function Navbar({ links }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const scrollY = useScrollYPosition();
@@ -14,7 +15,7 @@ import { useScrollYPosition } from "react-use-scroll-position";
         menuOpen ? " nav-open" : ""
       }`}>
       <div className="nav-content">
-        <div className="nav-logo">Turkish</div>
+        <div    className="nav-logo"> <img style={{height:"24vh",paddingTop:"12px"}} src='/static/favicon.png' alt="Turkish Pass" /> </div>
 
         <nav className="nav-links__container">
           {links &&

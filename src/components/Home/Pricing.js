@@ -9,61 +9,25 @@ function Pricing() {
         </div>
       </div>
       <div className="pricing-lower">
-        <div className="pricing-cards">
+        <div className="pricing-cards"> 
           <div className="pricing-card">
             <div className="pricing-card__header">
-              <span className="pricing-card__subtitle">2 years</span>
+              <span className="pricing-card__subtitle">6 Months</span>
               <div className="pricing-card__title">
-                $20<span> / month</span>
+                $30<span> / 6 months</span>
               </div>
             </div>
             <ul className="pricing-card__features">
-              <li>Increase traffic 50%</li>
-              <li>E-mail support</li>
-              <li>10 Free Optimization</li>
+              <li>Get discounts up to 50%</li>
+              <li>Find directions to all of the stores we work with</li>
+              <li>Enjoy top notch tourism experience</li>
               <li>24/7 support</li>
             </ul>
-            <a href="#pricing" className="pricing-card__btn">
-              Get started
+            <a href="/register" className="pricing-card__btn">
+              Get started now!
             </a>
           </div>
-
-          <div className="pricing-card">
-            <div className="pricing-card__header">
-              <span className="pricing-card__subtitle">3 years</span>
-              <div className="pricing-card__title">
-                $18<span> / month</span>
-              </div>
-            </div>
-            <ul className="pricing-card__features">
-              <li>Increase traffic 50%</li>
-              <li>E-mail support</li>
-              <li>10 Free Optimization</li>
-              <li>24/7 support</li>
-            </ul>
-            <a href="#pricing" className="pricing-card__btn">
-              Get started
-            </a>
-          </div>
-
-          <div className="pricing-card">
-            <div className="pricing-card__header">
-              <span className="pricing-card__subtitle">4 years</span>
-              <div className="pricing-card__title">
-                $14<span> / month</span>
-              </div>
-            </div>
-            <ul className="pricing-card__features">
-              <li>Increase traffic 50%</li>
-              <li>E-mail support</li>
-              <li>10 Free Optimization</li>
-              <li>24/7 support</li>
-            </ul>
-            <a href="#pricing" className="pricing-card__btn">
-              Get started
-            </a>
-          </div>
-        </div>
+    </div>
       </div>
     </section>
   );

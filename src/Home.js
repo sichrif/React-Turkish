@@ -46,7 +46,7 @@ export default function Home() {
             <Fade right>
               <Download />
             </Fade>
-        
+          
         <Fade bottom>
           <Footer />
         </Fade>
@@ -62,21 +62,17 @@ const MainStyled = styled.main`
   background-color: #ffaaaa3b;
  }
 #features{
-   margin-bottom : 25% !important;
+   margin-bottom : 5% !important;
  }
-#services{
-  padding-top: 0px !important;
-}
+ 
 section {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 200px);
-  padding: 100px 24px;
+
 }
 section > .container {
   display: flex;
-  height: 100%;
-  margin: 0px auto;
+   margin: 0px auto;
   max-width: 1440px;
 }
 section > .container > * {

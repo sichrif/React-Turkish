@@ -46,7 +46,7 @@ function Footer() {
           </div>
         </div>
         <div className="copyright">
-          Inspired by Colorlib, coded by pathetic geek.
+          Turkish pass LLC, coded by <b><a href="https://linkedin.com/in/med-cherif-js" > sichrif </a></b>
         </div>
       </div>
     </footer>

@@ -11,24 +11,25 @@ import { useSelector } from 'react-redux';
 import React,{ useEffect,Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom'
-
+const DashboardLayout = React.lazy(() => import('./layouts/dashboard'));
+import ScrollToTop from './components/ScrollToTop';
+import Location from './components/Locations/Location';
 // theme
 import ThemeConfig from './theme';
 // components 
 //const Home = React.lazy(() => import('./Home'));
 import Home from './Home';
 const Payofficial = React.lazy(() => import('./components/payment/Payofficial'));
-const NotFound = React.lazy(() => import('./pages/Page404'));
-const User = React.lazy(() => import('./pages/User'));
-const Blog = React.lazy(() => import('./pages/Blog'));
-const Products = React.lazy(() => import('./pages/Products'));
-const Register = React.lazy(() => import('./pages/Register'));
-const Login = React.lazy(() => import('./pages/Login'));
-const DashboardLayout = React.lazy(() => import('./layouts/dashboard'));
-const Location = React.lazy(() => import('./components/Locations/Location'));
-const ScrollToTop = React.lazy(() => import('./components/ScrollToTop'));
-const DashboardApp = React.lazy(() => import('./pages/DashboardApp'));
- 
+import NotFound from './pages/Page404';
+import User from './pages/User';
+import Blog from './pages/Blog';
+import Products from './pages/Products';
+import Register from './pages/Register';
+import Login from './pages/Login';
+//const Location = React.lazy(() => import('./components/Locations/Location'));
+const GiftCard = React.lazy(() => import('./components/GiftCard/GiftCard'));
+
+import DashboardApp from './pages/DashboardApp'; 
 // ----------------------------------------------------------------------
  
 
@@ -49,7 +50,9 @@ export default function App() {
 
   return (
     <ThemeConfig>
-            <Suspense fallback={<div>Chargement...</div>}>
+            <Suspense fallback={<div style={{background:"#faa"}}>
+              <img style={{margin:"auto",position:"fixed",top:"0",bottom:"0",left:"0",right:"0"}} src="./images/loading.gif" alt="loading" />
+            </div>}>
     <ScrollToTop />
            <Routes>
       <Route  path= '/' element={ <Home />}/>
@@ -63,6 +66,7 @@ export default function App() {
           <Route path="location" element={<Location />} />
           <Route path="products" element={<Products />} />
           <Route path="blog" element={<Blog />} />
+          <Route path="giftcard" element={<GiftCard />} />
 
      </Route>
      </Routes>

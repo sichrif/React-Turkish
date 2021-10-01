@@ -8,27 +8,27 @@ import {
   Routes
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import React,{ useEffect,Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom'
 
 // theme
 import ThemeConfig from './theme';
-// components
-import ScrollToTop from './components/ScrollToTop';
-import Location from './components/Locations/Location';
-import DashboardLayout from './layouts/dashboard';
-import LogoOnlyLayout from './layouts/LogoOnlyLayout';
-//
- import Login from './pages/Login';
-import Register from './pages/Register';
-import DashboardApp from './pages/DashboardApp';
-import Products from './pages/Products';
-import Blog from './pages/Blog';
-import User from './pages/User';
-import NotFound from './pages/Page404';
-import Payofficial from './components/payment/Payofficial';
+// components 
+//const Home = React.lazy(() => import('./Home'));
 import Home from './Home';
+const Payofficial = React.lazy(() => import('./components/payment/Payofficial'));
+const NotFound = React.lazy(() => import('./pages/Page404'));
+const User = React.lazy(() => import('./pages/User'));
+const Blog = React.lazy(() => import('./pages/Blog'));
+const Products = React.lazy(() => import('./pages/Products'));
+const Register = React.lazy(() => import('./pages/Register'));
+const Login = React.lazy(() => import('./pages/Login'));
+const DashboardLayout = React.lazy(() => import('./layouts/dashboard'));
+const Location = React.lazy(() => import('./components/Locations/Location'));
+const ScrollToTop = React.lazy(() => import('./components/ScrollToTop'));
+const DashboardApp = React.lazy(() => import('./pages/DashboardApp'));
+ 
 // ----------------------------------------------------------------------
  
 
@@ -49,6 +49,7 @@ export default function App() {
 
   return (
     <ThemeConfig>
+            <Suspense fallback={<div>Chargement...</div>}>
     <ScrollToTop />
            <Routes>
       <Route  path= '/' element={ <Home />}/>
@@ -75,6 +76,7 @@ export default function App() {
       <Route path="*"   element={<Navigate to="404" />} /> */}
  
      </Routes>
+     </Suspense>
     </ThemeConfig>
   );
 }

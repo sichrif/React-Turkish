@@ -38,7 +38,7 @@ command to run if program contains helper info
 Contributors names and contact info
 
 ex. Mohamed Cherif
-ex. [@sichrif](https://facebool.com/sichrif)
+ex. [@sichrif](https://facebook.com/sichrif)
 
 ## Version History
 

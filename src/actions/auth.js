@@ -5,7 +5,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   SET_MESSAGE
-} from './types';
+} from '../actions/types';
 
 import AuthService from '../services/auth.service';
 
@@ -57,14 +57,13 @@ export const login = (email, password) => (dispatch) => {
     (error) => {
       const message =
         (error.response && error.response.data && error.response.data.message) ||
-        error.message ||
+        error.response.data ||
         error.toString();
 
       dispatch({
         type: LOGIN_FAIL
       });
-
-      dispatch({
+       dispatch({
         type: SET_MESSAGE,
         payload: message
       });

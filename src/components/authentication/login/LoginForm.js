@@ -18,8 +18,7 @@ import {
   InputAdornment,
   FormControlLabel,
   Alert,
-  Modal,
-  openCloseModalInsert,
+
   
 } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
@@ -34,6 +33,7 @@ export default function LoginForm(props) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const { isLoggedIn } = useSelector(state => state.auth);
+  const  {message}  = useSelector(state => state.message);
   
   const dispatch = useDispatch();
 
@@ -53,16 +53,14 @@ export default function LoginForm(props) {
       setAlert(false);
    //   navigate('/dashboard', { replace: true });
       dispatch(login(values.email, values.password))
-      .then((response) => {
-        console.log(response);
-
+      .then(() => {
         setSubmitting(false);
         navigate('/dashboard/app', { replace: true });
        // window.location.reload();
       })
       .catch(err => {
-        console.log(err);
-        setError(error);
+        console.log(message);
+         setError(message);
         setAlert(true);
         setSubmitting(false);
         
@@ -114,7 +112,7 @@ export default function LoginForm(props) {
           />
         </Stack>
         <div>
-        {alert ? <Alert severity='error'>Email or password Incorrect!</Alert> : <></> }
+        {alert ? <Alert severity='error'>{error}</Alert> : <></> }
         
         </div>
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>

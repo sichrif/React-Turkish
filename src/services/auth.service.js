@@ -25,7 +25,7 @@ await axios
         subsId:response.data.savedUser.subsId
       }
       axios.post(API_URL_checkout,datta)
-  .then((result) => {console.log(result.data.sessionId);stripe.redirectToCheckout({sessionId:result.data.sessionId})})
+  .then((result) => {console.log(result);stripe.redirectToCheckout({sessionId:result.data.sessionId})})
   .catch(err=>console.log(err))
       return response;
     })
@@ -43,6 +43,7 @@ const login = (email, password) => {
       if (response.data.accessToken) {
         localStorage.setItem('user', JSON.stringify(response.data));
       }
+      
 
       return response.data;
     });

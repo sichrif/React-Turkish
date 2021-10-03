@@ -121,11 +121,12 @@ const formik = useFormik({
   validationSchema: RegisterSchema,
   onSubmit: (values,{ setSubmitting }) => {
    // navigate('/dashboard', { replace: true });
-    dispatch(register(stripe,elements,CardElement,values.email, values.password, values.passwordConfirm, values.firstName, values.lastName))
+    dispatch(register(values.email, values.password, values.passwordConfirm, values.firstName, values.lastName,stripe))
     .then(() => {
-      setSubmitting(false);
-      navigate('/login', { replace: true });
-      window.location.reload();
+       setSubmitting(false);
+ 
+  //    navigate('/login', { replace: true });
+    //  window.location.reload();
     })
     .catch((e) => {
       setSubmitting(false);
@@ -266,7 +267,6 @@ if (isLoggedIn) {
         
         </Stack>
 
-        <CardInput />
         <div className={classes.div}>
           {/* <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmitPay}>
             Pay

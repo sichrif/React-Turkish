@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Formik } from 'formik';
 var voucher_codes = require('voucher-code-generator');
 import Grid from "@material-ui/core/Grid";
+import axios from 'axios';
 
 const GiftCardstyle = styled.header``;
 
@@ -17,6 +18,10 @@ function GiftCard() {
         count: Number(values.name)
       })
     );
+    let url = process.env.REACT_APP_BACKEND_URL + '/api/checkout/createcoupon';
+    axios.post(url,data)
+    .then(respose=>console.log(respose))
+    .catch(err=>console.log(err));
   };
 
   return (

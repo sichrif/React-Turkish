@@ -16,7 +16,7 @@ function Payofficial() {
   return (
       <>
     <CssBaseline />
-    <LogoOnlyLayout/>
+    
     <Elements stripe={stripePromise}>
       <HomePage />
     </Elements>

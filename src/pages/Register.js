@@ -52,7 +52,7 @@ export default function Register() {
       <MHidden width="mdDown">
         <SectionStyle>
           <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Manage the job more effectively with Turkish
+            Travel and shop better with Turkish
           </Typography>
           <img alt="register" src="/static/illustrations/signup_ill.png" />
         </SectionStyle>
@@ -62,10 +62,10 @@ export default function Register() {
         <ContentStyle>
           <Box sx={{ mb: 5 }}>
             <Typography variant="h4" gutterBottom>
-              Get started absolutely free.
+              Get started absolutely Now.
             </Typography>
             <Typography sx={{ color: 'text.secondary' }}>
-              Free forever. No credit card needed.
+              Save more money shopping.
             </Typography>
           </Box>
 {/* 

@@ -7,6 +7,7 @@ import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 import { Navigate } from 'react-router-dom';
+import { loadStripe } from "@stripe/stripe-js";
 
 // material
 import {
@@ -23,13 +24,15 @@ import {
 } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
 import { login } from "../../../actions/auth";
+import axios from 'axios';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm(props) {
+  const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUB_KEY);
+
   const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const { isLoggedIn } = useSelector(state => state.auth);
@@ -41,7 +44,21 @@ export default function LoginForm(props) {
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required')
   });
-
+const reddirect =async (email) =>{
+  console.log(email);
+  try {
+    const stripe = await stripePromise;
+    const API_URL_checkout =process.env.REACT_APP_BACKEND_URL + '/api/checkout/checkoutlogin/';
+    const datta = {
+      subsId:email
+    }
+    axios.post(API_URL_checkout,datta)
+.then((result) => {console.log(result);stripe.redirectToCheckout({sessionId:result.data.sessionId})})
+.catch(err=>console.log(err))
+  } catch (errorr) {
+    console.log(errorr)
+  }  
+}
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -63,7 +80,10 @@ export default function LoginForm(props) {
          setError(message);
         setAlert(true);
         setSubmitting(false);
+        if(message=="You don't have any subscription"){
+          reddirect(values.email);
         
+        }
       });
     }
   });
